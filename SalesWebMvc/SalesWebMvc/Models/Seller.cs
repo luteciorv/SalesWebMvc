@@ -42,6 +42,6 @@ namespace SalesWebMvc.Models
 
         // Total de vendas do vendedor entre os períodos informados
         public float TotalSales(DateTime initialDate, DateTime finalDate)
-        { return SalesRecords.Where(sR => sR.Date >= initialDate && sR.Date <= finalDate).Sum(sr => sr.Amount); }       
+        { return SalesRecords.Where(sR => sR.Date >= initialDate && sR.Date <= finalDate).Sum(sr => sr.SaleValue); }       
     }
 }

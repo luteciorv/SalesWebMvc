@@ -38,7 +38,7 @@ namespace SalesWebMvc.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Date = table.Column<DateTime>(nullable: false),
-                    Amount = table.Column<int>(nullable: false),
+                    SaleValue = table.Column<int>(nullable: false),
                     Status = table.Column<int>(nullable: false),
                     SellerId = table.Column<int>(nullable: true)
                 },
