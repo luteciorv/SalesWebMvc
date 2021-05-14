@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SalesWebMvc.Models;
+using SalesWebMvc.Models.ViewModels;
 using SalesWebMvc.Services;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,17 @@ namespace SalesWebMvc.Controllers
 {
     public class SellersController : Controller
     {
-        // Declarar uma injeção dependência ao SellerService
+        // Declarar uma injeção de dependência para o SellerService
         private readonly SellerService _sellerService;
 
+        // Declarar uma injeção de dependência para o DepartmentService
+        private readonly DepartmentService _departmentService;
+
         // Construtor #1
-        public SellersController(SellerService sellerService)
+        public SellersController(SellerService sellerService, DepartmentService departmentService)
         {
             _sellerService = sellerService;
+            _departmentService = departmentService;
         }
 
         public IActionResult Index()
@@ -30,7 +35,13 @@ namespace SalesWebMvc.Controllers
         // Ação => Criar/Cadastrar um novo vendedor // GET
         public IActionResult Create()
         {
-            return View();
+            // Buscar no banco de dados todos os departamentos
+            var departments = _departmentService.FindAll();
+
+            // Instanciar um objeto ViewModel
+            var viewModel = new SellerFormViewModel { Departments = departments };
+
+            return View(viewModel);
         }
 
         // Ação => Receber um objeto e instanciar ele // POST

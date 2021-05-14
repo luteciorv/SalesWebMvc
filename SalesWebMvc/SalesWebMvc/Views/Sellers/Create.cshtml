@@ -1,5 +1,5 @@
-﻿@*Indica que essa View tem a sua disposição o Atributo "Seller"*@
-@model SalesWebMvc.Models.Seller
+﻿@*Indica que essa View tem a sua disposição o Atributo "SellerFormViewModel"*@
+@model SalesWebMvc.Models.ViewModels.SellerFormViewModel
 
 @{
     ViewData["Title"] = "Cadastrar novo vendedor";
@@ -21,26 +21,34 @@
             @*Nome*@
             <div class="form-group">
                 @*Nome do label que vai aparecer na caixa de texto pro usuário digitar*@
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="Seller.Name" class="control-label"></label>
+                <input asp-for="Seller.Name" class="form-control" />
             </div>
 
             @*Email*@
             <div class="form-group">                
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <label asp-for="Seller.Email" class="control-label"></label>
+                <input asp-for="Seller.Email" class="form-control" />
             </div>
 
             @*Data de aniversário*@
             <div class="form-group">                
-                <label asp-for="BirthDate" class="control-label"></label>
-                <input asp-for="BirthDate" class="form-control" />
+                <label asp-for="Seller.BirthDate" class="control-label"></label>
+                <input asp-for="Seller.BirthDate" class="form-control" />
             </div>
 
             @*Salário base*@
             <div class="form-group">                
-                <label asp-for="BaseSalary" class="control-label"></label>
-                <input asp-for="BaseSalary" class="form-control" />
+                <label asp-for="Seller.BaseSalary" class="control-label"></label>
+                <input asp-for="Seller.BaseSalary" class="form-control" />
+            </div>
+
+            @*Caixa de seleção dos departamentos*@
+            @*Fonte de dados da seleção / Chave do atributo / Atributo exibido*@
+            <div class="form-group">
+                <label asp-for="Seller.DepartmentId" class="control-label"></label>
+                <select asp-for="Seller.DepartmentId" asp-items="@(new SelectList(Model.Departments, "Id",
+                "Name"))" class="form-control"></select>
             </div>
 
             @*Botão de "Cadastrar"*@
