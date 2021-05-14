@@ -20,5 +20,13 @@ namespace SalesWebMvc.Services
         // Retorna todos os vendedores
         public List<Seller> FindAll()
         { return _contex.Seller.ToList(); }
+
+        // Método para inserir os dados no banco de dados
+        public void Insert(Seller obj)
+        { 
+            _contex.Add(obj);
+
+            _contex.SaveChanges();
+        }
     }
 }
