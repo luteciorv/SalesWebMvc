@@ -13,7 +13,8 @@ namespace SalesWebMvc.Models
         public DateTime BirthDate { get; set; }  // Data de nascimento
         public float BaseSalary { get; set; }    // Valor do salário base
         public Department Department { get; set; } // Departamento
-        public ICollection<SalesRecord> SalesRecords { get; set; } = new List<SalesRecord>(); // Registro de vendas
+        public int DepartmentId { get; set; } // Número de identificação do departamento
+        public ICollection<SalesRecord> SalesRecords { get; set; } = new List<SalesRecord>(); // Registro de vendas       
 
         // Construtor #1 - Default
         public Seller()
