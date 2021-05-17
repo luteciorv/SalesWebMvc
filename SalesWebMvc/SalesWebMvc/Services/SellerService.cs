@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SalesWebMvc.Services.Exceptions;
 
 namespace SalesWebMvc.Services
 {
@@ -45,6 +46,31 @@ namespace SalesWebMvc.Services
 
             // Aplicar essa mudança no banco de dados
             _contex.SaveChanges();
+        }
+
+        // Atualizar as informações do vendedor
+        public void Update(Seller seller)
+        {
+            // Buscar no banco de dados se existe algum vendedor com esse número de identificação
+            if(!_contex.Seller.Any(s => s.Id == seller.Id))
+            {
+                throw new NotFoundException("ERRO! Número de identificação (Id) não encontrado");
+            }
+
+            // Possibilidade de ocorrer uma exceção
+            try
+            {
+                // Atualizar o vendedor
+                _contex.Update(seller);
+
+                // Atualizar o banco de dados
+                _contex.SaveChanges();
+            }
+
+            catch(DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }           
         }
     }
 }
