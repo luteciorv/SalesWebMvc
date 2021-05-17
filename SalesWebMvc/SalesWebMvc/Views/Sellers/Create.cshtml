@@ -18,6 +18,8 @@
         @*Formulário*@
         @*Ao enviar o formulário, ele chamará o método Create. Mas não o Create GET, mas sim o Create POST*@
         <form asp-action="Create">
+            @*Validações*@
+            <div asp-validation-summary="All" class="text-danger"></div>
             @*Nome*@
             <div class="form-group">
                 @*Nome do label que vai aparecer na caixa de texto pro usuário digitar*@
@@ -58,3 +60,8 @@
         </form>
     </div>
 </div>
+
+@section Scripts{ 
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

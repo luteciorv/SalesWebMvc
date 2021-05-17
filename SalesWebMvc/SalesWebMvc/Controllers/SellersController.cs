@@ -49,6 +49,17 @@ namespace SalesWebMvc.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Seller seller)
         {
+            // Caso o objeto passado não seja válido
+            if (!ModelState.IsValid)
+            {
+                // Buscar todos os departamentos
+                var departments = _departmentService.FindAll();
+
+                var viewMode = new SellerFormViewModel { Seller = seller, Departments = departments };
+
+                return View(viewMode);
+            }
+
             // Inserir o vendedor no banco de dados
             _sellerService.Insert(seller);
 
@@ -139,6 +150,17 @@ namespace SalesWebMvc.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Seller seller)
         {
+            // Caso o objeto passado não seja válido
+            if (!ModelState.IsValid)
+            {
+                // Buscar todos os departamentos
+                var departments = _departmentService.FindAll();
+
+                var viewMode = new SellerFormViewModel { Seller = seller, Departments = departments };
+
+                return View(viewMode); 
+            }
+
             if (id != seller.Id)
             {
                 return RedirectToAction(nameof(Error),
