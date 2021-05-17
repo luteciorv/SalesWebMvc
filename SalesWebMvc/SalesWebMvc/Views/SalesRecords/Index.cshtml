@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Busca de vendas";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@*Busca Simples*@
+<div class="row">
+    <div class="col-md-6">
+        <form class="form-horizontal" asp-action="SimpleSearch">
+            <fieldset>
+                <legend>Busca simples</legend>
+                <div class="form-group">
+                    <label for="minDate" class="col-lg-3 control-label">Data mínima</label>
+                    <div class="col-lg-9">
+                        <input type="date" name="minDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="maxDate" class="col-lg-3 control-label">Data máxima</label>
+                    <div class="col-lg-9">
+                        <input type="date" name="maxDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-3">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+@*Busca com grupos*@
+<div class="row">
+    <div class="col-md-6">
+        <form class="form-horizontal" asp-action="GroupingSearch">
+            <fieldset>
+                <legend>Busca por grupo</legend>
+                <div class="form-group">
+                    <label for="minDate" class="col-lg-3 control-label">Data mínima</label>
+                    <div class="col-lg-9">
+                        <input type="date" name="minDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="maxDate" class="col-lg-3 control-label">Data máxima</label>
+                    <div class="col-lg-9">
+                        <input type="date" name="maxDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-3">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
