@@ -53,7 +53,34 @@ namespace SalesWebMvc.Controllers
             _sellerService.Insert(seller);
 
             // Redirecionar a requisição para o Index, exibindo a tela de vendedores
-            return RedirectToAction(nameof(Index));           
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Action => Remover vendedor // GET
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            { return NotFound(); }
+
+            // Buscar o vendedor
+            var seller = _sellerService.FindById(id.Value);
+
+            if (seller == null)
+            { return NotFound(); }
+
+            return View(seller);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // Action => Remover vendedor // POST
+        public IActionResult Delete(int id)
+        {
+            // Remover vendedor
+            _sellerService.Remove(id);
+
+            // Redirecionar para a listagem dos vendedores
+            return RedirectToAction(nameof(Index));
         }
     }
 }

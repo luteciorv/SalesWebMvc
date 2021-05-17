@@ -1,0 +1,68 @@
+﻿@model SalesWebMvc.Models.Seller
+
+@{
+    ViewData["Title"] = "Remover";
+}
+
+<h2> @ViewData["Title"] </h2>
+
+<h3> Você tem certeza de que desejea remover o vendedor @Model.Name? </h3>
+
+<div>
+    <h4> Informações do vendedor </h4>
+
+    @*Passar uma linha*@
+    <hr />
+
+    @*Listar os campos do objeto em questão => vendedor*@
+    <dl class="dl-horizontal">
+        @*Nome do camp => Nome*@
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        @*Valor do campo => Nome*@
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        @*Campo => email*@
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        @*Valor => email*@
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        @*Campo => data de nascimento*@
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+
+        @*Valor => data de nascimento*@
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+
+        @*Campo => Salário base*@
+        <dt>
+            @Html.DisplayNameFor(model => model.BaseSalary)
+        </dt>
+
+        @*Valor => Salário base*@
+        <dd>
+            @Html.DisplayFor(model => model.BaseSalary)
+        </dd>
+    </dl>
+
+    @*Formulário com botão de enviar e cancelar*@
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Remover" class="btn btn-danger" /> @*Botão de remover*@
+
+        <a asp-action="Index">Voltar para a lista</a> @*Link voltar para a lista de vendedores*@
+    </form>
+
+</div>
