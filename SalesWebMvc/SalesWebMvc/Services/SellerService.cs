@@ -19,40 +19,46 @@ namespace SalesWebMvc.Services
             _contex = contex;
         }
 
-        // Retorna todos os vendedores
-        public List<Seller> FindAll()
-        { return _contex.Seller.ToList(); }
+        // Retorna todos os vendedores // ASSÍNCRONO
+        public async Task<List<Seller>> FindAllAsync()
+        { 
+            return await _contex.Seller.ToListAsync(); 
+        }
 
-        // Método para inserir os dados no banco de dados
-        public void Insert(Seller obj)
+        // Método para inserir os dados no banco de dados // ASSÍNCRONO
+        public async Task InsertAsync(Seller obj)
         {            
             _contex.Add(obj);
 
-            _contex.SaveChanges();
+            await _contex.SaveChangesAsync();
         }
 
-        // Buscar um vendedor pelo seu número de identificação
-        public Seller FindById(int id)
-        { return _contex.Seller.Include(s => s.Department).FirstOrDefault(s => s.Id == id); }
+        // Buscar um venedor pelo seu número de identificação // ASSÍNCRONO
+        public async Task<Seller> FindByIdAsync(int id)
+        { 
+            return await _contex.Seller.Include(s => s.Department).FirstOrDefaultAsync(s => s.Id == id); 
+        }
 
-        // Remover um vendedor
-        public void Remove(int id)
+        // Remover um vendedor // ASSÍNCRONO
+        public async Task RemoveAsync(int id)
         {
             // Buscar o vendedor
-            var seller = _contex.Seller.Find(id);
+            var seller = await _contex.Seller.FindAsync(id);
 
             // Remover ele
             _contex.Seller.Remove(seller);
 
             // Aplicar essa mudança no banco de dados
-            _contex.SaveChanges();
+            await _contex.SaveChangesAsync();
         }
 
-        // Atualizar as informações do vendedor
-        public void Update(Seller seller)
+        // Atualizar as informações do vendedor // ASSÍNCRONO
+        public async Task UpdateAsync(Seller seller)
         {
             // Buscar no banco de dados se existe algum vendedor com esse número de identificação
-            if(!_contex.Seller.Any(s => s.Id == seller.Id))
+            bool hasAny = await _contex.Seller.AnyAsync(s => s.Id == seller.Id);
+            
+            if (!hasAny)
             {
                 throw new NotFoundException("ERRO! Número de identificação (Id) não encontrado");
             }
@@ -64,7 +70,7 @@ namespace SalesWebMvc.Services
                 _contex.Update(seller);
 
                 // Atualizar o banco de dados
-                _contex.SaveChanges();
+                await _contex.SaveChangesAsync();
             }
 
             catch(DbUpdateConcurrencyException e)
