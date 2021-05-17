@@ -95,11 +95,20 @@ namespace SalesWebMvc.Controllers
         // Action => Remover vendedor // POST // ASSÍNCRONO
         public async Task<IActionResult> Delete(int id)
         {
-            // Remover vendedor
-            await _sellerService.RemoveAsync(id);
+            try
+            {
+                // Remover vendedor
+                await _sellerService.RemoveAsync(id);
 
-            // Redirecionar para a listagem dos vendedores
-            return RedirectToAction(nameof(Index));
+                // Redirecionar para a listagem dos vendedores
+                return RedirectToAction(nameof(Index));
+            }
+
+            catch(IntegrityException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
+            
         }
 
         // ACTION => Detalhes do vendedor // GET // ASSÍNCRONO

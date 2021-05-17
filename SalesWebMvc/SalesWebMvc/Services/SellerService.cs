@@ -42,14 +42,23 @@ namespace SalesWebMvc.Services
         // Remover um vendedor // ASSÍNCRONO
         public async Task RemoveAsync(int id)
         {
-            // Buscar o vendedor
-            var seller = await _contex.Seller.FindAsync(id);
+            try
+            {
+                // Buscar o vendedor
+                var seller = await _contex.Seller.FindAsync(id);
 
-            // Remover ele
-            _contex.Seller.Remove(seller);
+                // Remover ele
+                _contex.Seller.Remove(seller);
 
-            // Aplicar essa mudança no banco de dados
-            await _contex.SaveChangesAsync();
+                // Aplicar essa mudança no banco de dados
+                await _contex.SaveChangesAsync();
+            }
+
+            catch(DbUpdateException e)
+            {
+                throw new IntegrityException("Não é possível deletar o vendedor que ainda possui vendas.");
+            }
+            
         }
 
         // Atualizar as informações do vendedor // ASSÍNCRONO
