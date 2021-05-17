@@ -4,6 +4,8 @@ using SalesWebMvc.Models.ViewModels;
 using SalesWebMvc.Services;
 using System.Collections.Generic;
 using SalesWebMvc.Services.Exceptions;
+using System.Diagnostics;
+using System;
 
 namespace SalesWebMvc.Controllers
 {
@@ -58,13 +60,19 @@ namespace SalesWebMvc.Controllers
         public IActionResult Delete(int? id)
         {
             if (id == null)
-            { return NotFound(); }
+            {
+                return RedirectToAction(nameof(Error),
+                new { message = "Número de identificação não fornecido" });
+            }
 
             // Buscar o vendedor
             var seller = _sellerService.FindById(id.Value);
 
             if (seller == null)
-            { return NotFound(); }
+            {
+                return RedirectToAction(nameof(Error),
+                new { message = "Número de identificação não encontrado" });
+            }
 
             return View(seller);
         }
@@ -85,13 +93,19 @@ namespace SalesWebMvc.Controllers
         public IActionResult Details(int? id)
         {
             if (id == null)
-            { return NotFound(); }
+            {
+                return RedirectToAction(nameof(Error),
+                new { message = "Número de identificação não fornecido" });
+            }
 
             // Buscar o vendedor
             var seller = _sellerService.FindById(id.Value);
 
             if (seller == null)
-            { return NotFound(); }
+            {
+                return RedirectToAction(nameof(Error),
+                new { message = "Número de identificação não encontrado" });
+            }
 
             return View(seller);
         }
@@ -101,14 +115,16 @@ namespace SalesWebMvc.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error),
+                new { message = "Número de identificação não fornecido" });
             }
 
             var seller = _sellerService.FindById(id.Value);
 
             if (seller == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error),
+                new { message = "Número de identificação não encontrado" });
             }
 
             // Carregar os departamentos para povoar a caixinha de seleção
@@ -125,7 +141,8 @@ namespace SalesWebMvc.Controllers
         {
             if (id != seller.Id)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error),
+                new { message = "Número de identificação não correspondem" });
             }
 
             try
@@ -137,15 +154,23 @@ namespace SalesWebMvc.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            catch(NotFoundException)
+            catch (ApplicationException e)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error),
+                new { message = e.Message });
             }
+        }
 
-            catch (DbConcurrencyException)
+        // ACTION => Retornar a janela de Erro
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
             {
-                return BadRequest();
-            }
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier // Pegar o RequestId da aplicação
+            };
+
+            return View(viewModel);
         }
     }
 }
