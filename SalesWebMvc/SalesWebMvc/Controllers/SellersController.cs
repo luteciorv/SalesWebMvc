@@ -82,5 +82,20 @@ namespace SalesWebMvc.Controllers
             // Redirecionar para a listagem dos vendedores
             return RedirectToAction(nameof(Index));
         }
+
+        // ACTION => Detalhes do vendedor // GET
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            { return NotFound(); }
+
+            // Buscar o vendedor
+            var seller = _sellerService.FindById(id.Value);
+
+            if (seller == null)
+            { return NotFound(); }
+
+            return View(seller);
+        }
     }
 }

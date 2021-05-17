@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SalesWebMvc.Services
 {
@@ -31,7 +32,7 @@ namespace SalesWebMvc.Services
 
         // Buscar um vendedor pelo seu número de identificação
         public Seller FindById(int id)
-        { return _contex.Seller.FirstOrDefault(s => s.Id == id); }
+        { return _contex.Seller.Include(s => s.Department).FirstOrDefault(s => s.Id == id); }
 
         // Remover um vendedor
         public void Remove(int id)

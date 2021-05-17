@@ -1,0 +1,77 @@
+﻿@model SalesWebMvc.Models.Seller
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<div>
+    <h4> Informações do vendedor </h4>
+
+    @*Passar uma linha*@
+    <hr />
+
+    @*Listar os campos do objeto em questão => vendedor*@
+<dl class="dl-horizontal">
+    @*Nome do camp => Nome*@
+    <dt>
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+
+    @*Valor do campo => Nome*@
+    <dd>
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+
+    @*Campo => email*@
+    <dt>
+        @Html.DisplayNameFor(model => model.Email)
+    </dt>
+
+    @*Valor => email*@
+    <dd>
+        @Html.DisplayFor(model => model.Email)
+    </dd>
+
+    @*Campo => data de nascimento*@
+    <dt>
+        @Html.DisplayNameFor(model => model.BirthDate)
+    </dt>
+
+    @*Valor => data de nascimento*@
+    <dd>
+        @Html.DisplayFor(model => model.BirthDate)
+    </dd>
+
+    @*Campo => Salário base*@
+    <dt>
+        @Html.DisplayNameFor(model => model.BaseSalary)
+    </dt>
+
+    @*Valor => Salário base*@
+    <dd>
+        @Html.DisplayFor(model => model.BaseSalary)
+    </dd>
+
+
+    @*Campo => Nome do departamento*@
+    <dt>
+        @Html.DisplayNameFor(model => model.Department)
+    </dt>
+
+    @*Valor => Nome do departamento*@
+    <dd>
+        @Html.DisplayFor(model => model.Department.Name)
+    </dd>
+</dl>
+</div>
+
+<div>
+    @*Link => Editar*@
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Editar</a>
+
+    @*Link => Voltar para a listagem*@
+    <a asp-action="Index">Voltar para a listagem</a>
+</div>
