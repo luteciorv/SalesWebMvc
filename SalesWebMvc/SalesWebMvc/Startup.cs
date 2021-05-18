@@ -48,6 +48,9 @@ namespace SalesWebMvc
 
             // Registrar o serviço de "Department"
             services.AddScoped<DepartmentService>();
+
+            // Registrar o serviço de "Seles Record"
+            services.AddScoped<SalesRecordService>();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

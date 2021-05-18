@@ -54,7 +54,7 @@ namespace SalesWebMvc.Services
                 await _contex.SaveChangesAsync();
             }
 
-            catch(DbUpdateException e)
+            catch(DbUpdateException)
             {
                 throw new IntegrityException("Não é possível deletar o vendedor que ainda possui vendas.");
             }

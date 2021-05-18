@@ -31,7 +31,7 @@ namespace SalesWebMvc.Models
         [Display(Name = "Salário base")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
         [Range(100.00f, 500000.00f, ErrorMessage = "O valor {0} precisa estar entre {1} e {2}")]        
-        public float BaseSalary { get; set; }    // Valor do salário base
+        public double BaseSalary { get; set; }    // Valor do salário base
        
         [Display(Name = "Departamento")]
         public Department Department { get; set; } // Departamento
@@ -39,7 +39,7 @@ namespace SalesWebMvc.Models
         [Display(Name = "Nome do departamento")]
         public int DepartmentId { get; set; } // Número de identificação do departamento
 
-        public ICollection<SalesRecord> SalesRecords { get; set; } = new List<SalesRecord>(); // Registro de vendas       
+        public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>(); // Registro de vendas       
 
         // Construtor #1 - Default
         public Seller()
@@ -60,14 +60,14 @@ namespace SalesWebMvc.Models
 
         // Adiciona um registro de venda na lista dos registros de vendas
         public void AddSales(SalesRecord salesRecord)
-        { SalesRecords.Add(salesRecord); }
+        { Sales.Add(salesRecord); }
 
         // Remove um registro de venda na lista dos registros de vendas
         public void RemoveSales(SalesRecord salesRecord)
-        { SalesRecords.Remove(salesRecord); }
+        { Sales.Remove(salesRecord); }
 
         // Total de vendas do vendedor entre os períodos informados
-        public float TotalSales(DateTime initialDate, DateTime finalDate)
-        { return SalesRecords.Where(sR => sR.Date >= initialDate && sR.Date <= finalDate).Sum(sr => sr.SaleValue); }       
+        public double TotalSales(DateTime initialDate, DateTime finalDate)
+        { return Sales.Where(sR => sR.Date >= initialDate && sR.Date <= finalDate).Sum(sr => sr.SaleValue); }       
     }
 }

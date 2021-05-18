@@ -12,6 +12,6 @@ namespace SalesWebMvc.Models
         // DbSet's das entidades
         public DbSet<Department> Department { get; set; } // Departamento
         public DbSet<Seller> Seller { get; set; } // Vendedor
-        public DbSet<SalesRecord> SalesRecords { get; set; } // Registro de vendas
+        public DbSet<SalesRecord> SalesRecord { get; set; } // Registro de vendas
     }
 }

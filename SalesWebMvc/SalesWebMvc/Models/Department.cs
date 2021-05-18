@@ -30,7 +30,7 @@ namespace SalesWebMvc.Models
 
 
         // Total de vendas de todos os vendedores do departamento entre os períodos informados
-        public float TotalSales(DateTime initialDate, DateTime finalDate)
+        public double TotalSales(DateTime initialDate, DateTime finalDate)
         { return Sellers.Sum(s => s.TotalSales(initialDate, finalDate)); }
     }
 }
