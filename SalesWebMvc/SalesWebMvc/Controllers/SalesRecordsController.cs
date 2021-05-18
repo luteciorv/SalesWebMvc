@@ -42,10 +42,23 @@ namespace SalesWebMvc.Controllers
             return View(result);
         }
 
-        // Guspa por grupos
-        public IActionResult GroupingSearch()
+        // Busca simples // ASSÍNCRONA
+        public async Task<IActionResult> GroupingSearch(DateTime? minDate, DateTime? maxDate)
         {
-            return View();
+            // Verificar se algum valor para a variável "Min Date" foi informado
+            minDate = !minDate.HasValue ? new DateTime(DateTime.Now.Year, 1, 1) : minDate;
+
+            // Verificar se algum valor para a variável "Min Date" foi informado
+            maxDate = !maxDate.HasValue ? DateTime.Now : maxDate;
+
+            // Passar os valores das variáveis "Min Date" e "Max Date"
+            ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
+            ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
+
+            // Encontrar todos as vendas realizadas no período informado
+            var result = await _salesRecordService.FindByDateGroupingAsync(minDate, maxDate);
+
+            return View(result);
         }
     }
 }
